@@ -5,4 +5,4 @@ import sounddevice as sd
 sample_rate, data = wavfile.read('dorime.wav')
 
 # output data
-sd.play(data, sample_rate)
+sd.play(data, sample_rate, blocking=True)
