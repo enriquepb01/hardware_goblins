@@ -5,8 +5,6 @@ import pyaudio
 import sys, time
 import numpy as np
 import wave
-from scipy import signal
-from noisereduce.noisereducev1 import reduce_noise
 
 from AudioLib.AudioEffect import AudioEffect
 
@@ -88,7 +86,6 @@ def goblin_callback(client, userdata, msg):
     global realTime
     global play
     global change
-    # print('Goblin: ' + str(msg.payload, 'utf-8'))
     # 4 items in transmission: n, echo (0/1), play (0/1), realtime (0/1)
     data = str(msg.payload, 'utf-8').strip()
     # parse through list of payload, extract the three items shown above
