@@ -12,10 +12,10 @@ from AudioLib.AudioEffect import AudioEffect
 
 # control variables
 n = 0
-echo = False
-realTime = True
-play = False
-change = False
+echo = 0
+realTime = 1
+play = 0
+change = 0
 
 pitch_val = -2    # Pitch shift value (positive is higher pitch, negative is lower pitch)
 echo = 1
@@ -89,15 +89,15 @@ def goblin_callback(client, userdata, msg):
     global play
     global change
     # print('Goblin: ' + str(msg.payload, 'utf-8'))
-    # 3 items in transmission: n, echo (t/f), play (t/f), realtime (t/f)
+    # 4 items in transmission: n, echo (0/1), play (0/1), realtime (0/1)
     data = str(msg.payload, 'utf-8').strip()
     # parse through list of payload, extract the three items shown above
     config = []
     extractConfig(config, data)
-    n = config[0]
-    echo = config[1]
-    play = config[2]
-    realTime = config[3]
+    n = int(config[0])
+    echo = int(config[1])
+    play = int(config[2])
+    realTime = int(config[3])
 
 def playSound():
     global n
@@ -105,9 +105,9 @@ def playSound():
     global play
     global realTime
     while True:
-        if(play == False):
+        if(play == 0):
             break
-        if(realTime == False):
+        if(realTime == 0):
             break
 
         time_data = stream.read(chunk)
@@ -157,10 +157,10 @@ if __name__ == '__main__':
     client.loop_start()
 
     while True:
-        if(play == True and realTime == True):
+        if(play == 1 and realTime == 1):
             # add logic
             playSound()
-        elif(play == True and realTime == False):
+        elif(play == 1 and realTime == 0):
             # add logic for recorded version
             AudioEffect.echo('input_audio.wav', 'echo_audio.wav')
             AudioEffect.darth_vader('input_audio.wav', 'darth_audio.wav')
