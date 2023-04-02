@@ -8,6 +8,8 @@ import wave
 from scipy import signal
 from noisereduce.noisereducev1 import reduce_noise
 
+from AudioLib.AudioEffect import AudioEffect
+
 # control variables
 n = 0
 echo = False
@@ -160,7 +162,10 @@ if __name__ == '__main__':
             playSound()
         elif(play == True and realTime == False):
             # add logic for recorded version
-            continue
+            AudioEffect.echo('input_audio.wav', 'echo_audio.wav')
+            AudioEffect.darth_vader('input_audio.wav', 'darth_audio.wav')
+            AudioEffect.radio('input_audio.wav', 'radio_output.wav')
+            AudioEffect.ghost('input_audio.wav', 'ghost_output.wav')
 
         
         
